@@ -37,10 +37,8 @@ for col_name, typ in dtypes.items():
         
         df[col_name] = df[col_name].fillna(replacement_value)
 #we check the sizing and contents of a column
-print(f'The cleaned frame: {df.shape}')
+print(f'The frame wthout nulls: {df.shape}')
 print(df.info())
-print(df.describe())
-
 #NORMALIZATION-----------------------------------------------------------------
 #function for normalizing each column to the range [0, 1]
 def norm(col):
@@ -53,8 +51,10 @@ for col_name, typ in dtypes.items():
 #MAPPING
 mapping = {'OK': 1, 'NOK': 0}
 df['status']=df['status'].map(mapping)
+mapping = {'type1': 1, 'type2': 2, 'type4':3}
+df['physical_part_type']=df['physical_part_type'].map(mapping)
 
-df.to_csv("cleaned.csv")
+df.to_csv("prefilter.csv")
 #VARIANCE FILTERING
 #our graph showed us a lot of columns with vary low variance. We dont need those
 low_variance_threshold = 0.01
@@ -68,18 +68,22 @@ df=df.drop(columns=columns_to_remove)
 df = df.dropna(axis=1, how='all') 
 print(f'The variance filtered frame: {df.shape}')
 df.to_csv("var.csv")
+#we want to discard NAN types and map the part types
+df = df.dropna(subset=['physical_part_type'])
+print("the data is clear. Here is the info before separation:")
+df.info()
+df.to_csv('clean.csv')
 #SEPARATION
 '''
-We want to separate the type 1 from type 2,4 and nan
+We want to separate the type 1 from type 2,4
 '''
 #we filter the data based on part type
-df_type1 = df[df['physical_part_type'] == 'type1'].drop(columns=['physical_part_type'])
-df_type2 = df[df['physical_part_type'] == 'type2'].drop(columns=['physical_part_type'])
-df_type4 = df[df['physical_part_type'] == 'type4'].drop(columns=['physical_part_type'])
-df_nan = df[df['physical_part_type'].isna()].drop(columns=['physical_part_type'])
-frames=[df_type1,df_type2,df_type4,df_nan]
-labels=['type 1', 'type 2', 'type 4', 'Nan']
-for i in range(4):
+df_type1 = df[df['physical_part_type'] == 1].drop(columns=['physical_part_type'])
+df_type2 = df[df['physical_part_type'] == 2].drop(columns=['physical_part_type'])
+df_type4 = df[df['physical_part_type'] == 3].drop(columns=['physical_part_type'])
+frames=[df_type1,df_type2,df_type4]
+labels=['type 1', 'type 2', 'type 4']
+for i in range(3):
     label=labels[i]
     frame=frames[i]
     print(f'{label} is shape {frame.shape}')
@@ -87,4 +91,3 @@ for i in range(4):
 df_type1.to_csv("type1.csv")
 df_type2.to_csv("type2.csv")
 df_type4.to_csv("type4.csv")
-df_nan.to_csv("type_nan.csv")

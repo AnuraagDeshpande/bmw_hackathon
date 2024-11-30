@@ -32,10 +32,11 @@ def plot_OK(df, ax):
     ax.set_ylabel('Count')
     ax.set_title('OK vs NOK')
 #we have labels for the files and graphs
-files=['cleaned.csv','var.csv',"type1.csv","type2.csv","type4.csv","type_nan.csv"]
-labels=["","_var", "_type1","_type2","_type4","_nan"]
+files=['prefilter.csv','var.csv',"clean.csv","type1.csv","type2.csv","type4.csv"]
+labels=["","_var", "_clean","_type1","_type2","_type4"]
+first=3
 #we plot the states before the split
-for i in range(2):
+for i in range(3):
     file=files[i]
     label=labels[i]
     df = pd.read_csv(file)
@@ -44,10 +45,10 @@ for i in range(2):
     plot_OK(df, ax)
     fig.savefig('./images/ok'+label+'.png')
 #we create graphs for each of the split groups
-fig, axes = plt.subplots(2, 2, figsize=(10, 10))  # Create a 5x5 grid of subplots
+fig, axes = plt.subplots(2, 2, figsize=(10, 10))  # Create a 2x2 grid of subplots
 axes = axes.flatten()  # Flatten to iterate easily
-for i in range(4):
-    indx=i+2
+for i in range(3):
+    indx=i+first
     file=files[indx]
     label=labels[indx]
     df = pd.read_csv(file)

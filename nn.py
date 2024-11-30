@@ -18,7 +18,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 #LOAD DATA:
 #Load the CSV file
-dataframe = pd.read_csv("type1.csv")
+dataframe = pd.read_csv("clean.csv")
 data_y=dataframe['status']
 data_x=dataframe.iloc[:,1:]
 input_size=data_x.shape[1]
