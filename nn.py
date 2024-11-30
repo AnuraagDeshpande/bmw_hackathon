@@ -3,6 +3,9 @@ import torch
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 from torch.utils.data import TensorDataset, DataLoader
 #INIT:
@@ -49,12 +52,11 @@ x_test=x[length:,:]
 #we turn tensors into a dataset
 train_dataset = TensorDataset(x_train, y_train)
 test_dataset = TensorDataset(x_test, y_test)
-# Create DataLoaders
+#create DataLoaders
 train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
-#copied from github
-# Fully connected neural network with one hidden layer
+#fully connected neural network with one hidden layer
 class NeuralNet(nn.Module):
     def __init__(self, input_size, hidden_size):
         super(NeuralNet, self).__init__()
@@ -67,16 +69,17 @@ class NeuralNet(nn.Module):
         out = self.l1(x)
         out = self.relu(out)
         out = self.l2(out)
-        # no activation and no softmax at the end
+        #no activation and no softmax at the end
         return out
 
 model = NeuralNet(input_size, hidden_size).to(device)
 
-# Loss and optimizer
+#Loss and optimizer
 criterion = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate) 
 
-# Train the model
+#Train the model
+losses = []
 n_total_steps = len(train_loader)
 for epoch in range(num_epochs):
     for i, (features, labels) in enumerate(train_loader):  
@@ -91,9 +94,19 @@ for epoch in range(num_epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        osses.append(loss.item())
         
         if (i+1) % 10 == 0:
             print (f'Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{n_total_steps}], Loss: {loss.item():.4f}')
+
+plt.figure(figsize=(10, 6))
+plt.plot(losses, label="Training Loss")
+plt.xlabel("Steps")
+plt.ylabel("Loss")
+plt.title("Training Loss Over Time")
+plt.legend()
+plt.savefig("./images/losses.png")  # Save the figure as a PNG file
+plt.close()
 
 # Evaluate the model
 with torch.no_grad():
