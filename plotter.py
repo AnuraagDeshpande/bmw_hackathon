@@ -20,7 +20,7 @@ def plot_sensors(df, name):
     fig.savefig('censors'+name+'.png')
 
 #this function plots the distribution of Ok and not Ok
-def plot_OK(df, name, ax):
+def plot_OK(df, ax):
     x = df['status']
     ax.hist(x, bins=2, color='orange',linewidth=0.5, edgecolor="white")
     # Set custom tick labels for the bins
@@ -41,7 +41,7 @@ for i in range(2):
     df = pd.read_csv(file)
     plot_sensors(df,label)
     fig, ax = plt.subplots()
-    plot_OK(df,label, ax)
+    plot_OK(df, ax)
     fig.savefig('ok'+label+'.png')
 #we create graphs for each of the split groups
 fig, axes = plt.subplots(2, 2, figsize=(10, 10))  # Create a 5x5 grid of subplots
@@ -53,6 +53,6 @@ for i in range(4):
     df = pd.read_csv(file)
     plot_sensors(df,label)
     ax=axes[i]
-    plot_OK(df,label, ax)
+    plot_OK(df, ax)
     ax.set_title(label)
 fig.savefig('ok'+'_types'+'.png')
