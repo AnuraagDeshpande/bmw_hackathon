@@ -16,8 +16,22 @@ Our main tools in this project were different python libraries on which the code
 This file cleans data of null values and separates it according to part type, while also saving intermediate results into a new file
 - plotter.py
 This file plots data produced by cleaner. Needed for presentation.
-# Our workflow with this project:
-At first we cleaned the data. There were a lot of null values which we had to deal with. Then we normalized the data and split it
-into several files according to the type of the part.
+# Execution of code:
+At first we cleaned the data. There were a lot of null values which we had to deal with. Also, a lot of it can be skewed or have low 
+variance. We address these problems in the first file:
 
 [cleaning.md](./cleaning.md)
+
+After the first step is done we need to balance it.
+
+When it is ready for training we use the new file as input in ```nn.py``` file. It trains and tests the model on
+the ```train.csv``` data set. 
+
+## Running the code:
+The execution of ```plotter.py``` can be done at any time after the cleaner is done.
+```
+python cleaner.py
+python balancer.py
+python nn.py
+python plotter.py
+```
