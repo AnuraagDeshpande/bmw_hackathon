@@ -7,7 +7,6 @@ import pandas as pd
 df = pd.read_csv('train.csv')
 print(f'The original frame: {df.shape}')
 
-
 #NULLS-------------------------------------------------------------------------
 #we drop not needed data
 df = df.drop(columns=['message_timestamp','weekday','shift','physical_part_id'])
@@ -52,6 +51,8 @@ for col_name, typ in dtypes.items():
 #MAPPING
 mapping = {'OK': 1, 'NOK': 0}
 df['status']=df['status'].map(mapping)
+
+df.to_csv("cleaned.csv")
 #SEPARATION
 '''
 We want to separate the type 1 from type 2,4 and nan
