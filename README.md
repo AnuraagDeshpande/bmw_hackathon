@@ -27,6 +27,8 @@ After the first step is done we need to balance it.
 When it is ready for training we use the new file as input in ```nn.py``` file. It trains and tests the model on
 the ```train.csv``` data set. 
 
+[model.md](./model.md)
+
 ## Running the code:
 The execution of ```plotter.py``` can be done at any time after the cleaner is done.
 ```
