@@ -30,6 +30,8 @@ for col_name, typ in dtypes.items():
 
         if abs(skewed) > 1:  #Highly skewed
             replacement_value = df[col_name].median()
+        else if:  df[col_name].isnull().sum()>0
+            replacement_value = df [col_name].mode() [0]
         else:  #Not highly skewed
             replacement_value = df[col_name].mean()
         
@@ -53,6 +55,19 @@ mapping = {'OK': 1, 'NOK': 0}
 df['status']=df['status'].map(mapping)
 
 df.to_csv("cleaned.csv")
+#VARIANCE FILTERING
+#our graph showed us a lot of columns with vary low variance. We dont need those
+low_variance_threshold = 0.05
+columns_to_remove=[]
+for col_name, typ in dtypes.items():
+    if(typ==my_type):
+        variance = df[col_name].var()
+        if (variance <= low_variance_threshold or (variance <= low_variance_threshold and abs(df[col_name].mean()-0)<0.01)):
+            columns_to_remove.append(col_name)
+df=df.drop(columns=columns_to_remove)
+df = df.dropna(axis=1, how='all') 
+print(f'The variance filtered frame: {df.shape}')
+df.to_csv("var.csv")
 #SEPARATION
 '''
 We want to separate the type 1 from type 2,4 and nan

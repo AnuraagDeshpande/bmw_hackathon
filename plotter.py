@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 df = pd.read_csv('cleaned.csv')
+new_df = pd.read_csv('var.csv')
 #we want to plot censor data in 1 plot
-def plot_sensors(df):
+def plot_sensors(df, name):
     fig, axes = plt.subplots(5, 5, figsize=(20, 20))  # Create a 5x5 grid of subplots
     axes = axes.flatten()  # Flatten to iterate easily
     cols=25
@@ -16,10 +17,10 @@ def plot_sensors(df):
         ax.set_title(f"{df.columns[i]}")
     # Adjust spacing between the subplots
     plt.subplots_adjust(hspace=0.6, wspace=0.6)
-    fig.savefig('censors.png')
+    fig.savefig('censors'+name+'.png')
 
 #this function plots the distribution of Ok and not Ok
-def plot_OK(df):
+def plot_OK(df, name):
     fig, ax = plt.subplots()
     x = df['status']
     ax.hist(x, bins=2, color='orange',linewidth=0.5, edgecolor="white")
@@ -31,7 +32,10 @@ def plot_OK(df):
     ax.set_xlabel('Status')
     ax.set_ylabel('Count')
     ax.set_title('OK vs NOK')
-    fig.savefig('ok.png')
+    fig.savefig('ok'+name+'.png')
 #we can call the functions now
-plot_sensors(df)
-plot_OK(df)
+plot_sensors(df,"")
+plot_OK(df,"")
+
+#plot_sensors(new_df,"_var")
+#plot_OK(new_df,"_var")
