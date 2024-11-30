@@ -57,7 +57,7 @@ df['status']=df['status'].map(mapping)
 df.to_csv("cleaned.csv")
 #VARIANCE FILTERING
 #our graph showed us a lot of columns with vary low variance. We dont need those
-low_variance_threshold = 0.05
+low_variance_threshold = 0.01
 columns_to_remove=[]
 for col_name, typ in dtypes.items():
     if(typ==my_type):
