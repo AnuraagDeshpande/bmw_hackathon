@@ -17,7 +17,7 @@ very different for different columns.
 ## Mapping:
 We can only have numbers for our model. Thus, we mapped 'OK' and 'NOK' to 1 and 0 respectively.
 ## Variance filtering:
-![initial sensor data](./censor.png)
+![initial sensor data](./censors.png)
 After plotting data from different sensors it was clear that a lot of it is heavily concentrated and has low
 variance. This data will not be as useful for the model and was dropped.
 
