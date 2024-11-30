@@ -8,6 +8,8 @@ Our main tools in this project were different python libraries on which the code
 ## Python libraries:
 1. Pandas
 2. Pytorch
+3. Numpy
+4. Matplotlib
 # Our workflow with this project:
 At first we cleaned the data. There were a lot of null values which we had to deal with. Then we normalized the data and split it
 into several files according to the type of the part.
