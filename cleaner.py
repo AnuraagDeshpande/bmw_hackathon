@@ -30,8 +30,8 @@ for col_name, typ in dtypes.items():
 
         if abs(skewed) > 1:  #Highly skewed
             replacement_value = df[col_name].median()
-        else if:  df[col_name].isnull().sum()>0
-            replacement_value = df [col_name].mode() [0]
+        #else if:  df[col_name].isnull().sum()>0
+        #   replacement_value = df [col_name].mode() [0]
         else:  #Not highly skewed
             replacement_value = df[col_name].mean()
         
@@ -77,6 +77,12 @@ df_type1 = df[df['physical_part_type'] == 'type1'].drop(columns=['physical_part_
 df_type2 = df[df['physical_part_type'] == 'type2'].drop(columns=['physical_part_type'])
 df_type4 = df[df['physical_part_type'] == 'type4'].drop(columns=['physical_part_type'])
 df_nan = df[df['physical_part_type'].isna()].drop(columns=['physical_part_type'])
+frames=[df_type1,df_type2,df_type4,df_nan]
+labels=['type 1', 'type 2', 'type 4', 'Nan']
+for i in range(4):
+    label=labels[i]
+    frame=frames[i]
+    print(f'{label} is shape {frame.shape}')
 #data is saved back to different csvs
 df_type1.to_csv("type1.csv")
 df_type2.to_csv("type2.csv")
