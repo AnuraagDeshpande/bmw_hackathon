@@ -17,7 +17,7 @@ def plot_sensors(df, name):
         ax.set_title(f"{df.columns[i]}")
     # Adjust spacing between the subplots
     plt.subplots_adjust(hspace=0.6, wspace=0.6)
-    fig.savefig('censors'+name+'.png')
+    fig.savefig('./images/censors'+name+'.png')
 
 #this function plots the distribution of Ok and not Ok
 def plot_OK(df, ax):
@@ -42,7 +42,7 @@ for i in range(2):
     plot_sensors(df,label)
     fig, ax = plt.subplots()
     plot_OK(df, ax)
-    fig.savefig('ok'+label+'.png')
+    fig.savefig('./images/ok'+label+'.png')
 #we create graphs for each of the split groups
 fig, axes = plt.subplots(2, 2, figsize=(10, 10))  # Create a 5x5 grid of subplots
 axes = axes.flatten()  # Flatten to iterate easily
@@ -55,4 +55,4 @@ for i in range(4):
     ax=axes[i]
     plot_OK(df, ax)
     ax.set_title(label)
-fig.savefig('ok'+'_types'+'.png')
+fig.savefig('./images/ok'+'_types'+'.png')
