@@ -20,8 +20,7 @@ def plot_sensors(df, name):
     fig.savefig('censors'+name+'.png')
 
 #this function plots the distribution of Ok and not Ok
-def plot_OK(df, name):
-    fig, ax = plt.subplots()
+def plot_OK(df, name, ax):
     x = df['status']
     ax.hist(x, bins=2, color='orange',linewidth=0.5, edgecolor="white")
     # Set custom tick labels for the bins
@@ -32,10 +31,28 @@ def plot_OK(df, name):
     ax.set_xlabel('Status')
     ax.set_ylabel('Count')
     ax.set_title('OK vs NOK')
-    fig.savefig('ok'+name+'.png')
-#we can call the functions now
-plot_sensors(df,"")
-plot_OK(df,"")
-
-#plot_sensors(new_df,"_var")
-#plot_OK(new_df,"_var")
+#we have labels for the files and graphs
+files=['cleaned.csv','var.csv',"type1.csv","type2.csv","type4.csv","type_nan.csv"]
+labels=["","_var", "_type1","_type2","_type4","_nan"]
+#we plot the states before the split
+for i in range(2):
+    file=files[i]
+    label=labels[i]
+    df = pd.read_csv(file)
+    plot_sensors(df,label)
+    fig, ax = plt.subplots()
+    plot_OK(df,label, ax)
+    fig.savefig('ok'+label+'.png')
+#we create graphs for each of the split groups
+fig, axes = plt.subplots(2, 2, figsize=(10, 10))  # Create a 5x5 grid of subplots
+axes = axes.flatten()  # Flatten to iterate easily
+for i in range(4):
+    indx=i+2
+    file=files[indx]
+    label=labels[indx]
+    df = pd.read_csv(file)
+    plot_sensors(df,label)
+    ax=axes[i]
+    plot_OK(df,label, ax)
+    ax.set_title(label)
+fig.savefig('ok'+'_types'+'.png')
