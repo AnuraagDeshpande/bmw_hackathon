@@ -20,3 +20,4 @@ This file plots data produced by cleaner. Needed for presentation.
 At first we cleaned the data. There were a lot of null values which we had to deal with. Then we normalized the data and split it
 into several files according to the type of the part.
 
+[cleaning.md](./cleaning.md)
