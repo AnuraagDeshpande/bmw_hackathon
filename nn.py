@@ -84,9 +84,7 @@ for epoch in range(num_epochs):
         labels = labels.to(device, dtype=torch.float).view(-1,1)  # Ensure labels are `long` for classification
         
         # Forward pass
-        #print(f'features {features}')
         outputs = model(features)
-        #print(f'outputs {outputs}')
         loss = criterion(outputs, labels)
         
         # Backward and optimize
