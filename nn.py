@@ -120,7 +120,7 @@ plt.savefig("./images/losses.png")  # Save the figure as a PNG file
 plt.close()
 
 model.eval()
-# Evaluate the model
+# Evaluate the model we dont track the gradient
 predictions_list = []
 with torch.no_grad():
     n_correct = 0

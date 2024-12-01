@@ -84,7 +84,7 @@ results_df = pd.DataFrame({
 #analysis!
 ok = len(results_df[results_df['prediction'] == 1])
 nok = len(results_df[results_df['prediction'] == 0])
-print(f'OK: {ok} NOK: {nok}')
+print(f'OK: {ok} NOK: {nok}')#we print the stats
 #mapping
 mapping={0: "NOK", 1: "OK"}
 results_df['prediction']=results_df['prediction'].map(mapping)
