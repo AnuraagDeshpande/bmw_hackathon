@@ -37,3 +37,9 @@ python balancer.py
 python nn.py
 python plotter.py
 ```
+
+In order to predict the following sequence of commands need to be run:
+```
+python fit_data.py
+python test_nn.py
+```
