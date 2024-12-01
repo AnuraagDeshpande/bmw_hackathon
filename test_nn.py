@@ -10,9 +10,9 @@ from torch.utils.data import TensorDataset, DataLoader
 #INIT:
 #we set the hyper parameters
 input_size = 0
-hidden_size = 20
+hidden_size = 60
 num_classes = 2
-num_epochs = 2
+num_epochs = 1
 batch_size = 50
 learning_rate = 0.001
 #we initate a device
