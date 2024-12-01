@@ -1,22 +1,26 @@
 # bmw_hackathon
-# Our team:
+## Our team:
 - person
 - person
 - ...
-# Libraries and tools we used:
+## Libraries and tools we used:
 Our main tools in this project were different python libraries on which the code depends as well as github for collaborative work.
-## Python libraries:
+### Python libraries:
 1. Pandas
 2. Pytorch
 3. Numpy
 4. Matplotlib
    
-# Files:
+## Files:
 - cleaner.py
 This file cleans data of null values and separates it according to part type, while also saving intermediate results into a new file
 - plotter.py
 This file plots data produced by cleaner. Needed for presentation.
-# Execution of code:
+- balancer.py
+Fixes the disbalance in OK before training
+- nn.py 
+Trains and saves the model. The accuracy is shown in the terminal.
+## Execution of code:
 At first we cleaned the data. There were a lot of null values which we had to deal with. Also, a lot of it can be skewed or have low 
 variance. We address these problems in the first file:
 
@@ -29,7 +33,7 @@ the ```train.csv``` data set.
 
 [model.md](./docs/model.md)
 
-## Running the code:
+### Running the code:
 The execution of ```plotter.py``` can be done at any time after the cleaner is done.
 ```
 python cleaner.py
@@ -52,3 +56,8 @@ In order to remove all csv files when done the following command is used
 ```
 ./remove_csv.sh
 ```
+
+## Analysis
+Below you can find our analysis of the model
+
+[analysis.md](./docs/analysis.md)
