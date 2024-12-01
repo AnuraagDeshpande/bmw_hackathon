@@ -123,3 +123,6 @@ with torch.no_grad():
 
     acc = 100.0 * n_correct / n_samples
     print(f'Accuracy of the network on the test set: {acc:.2f}%')
+#save the model
+model_path="./data/model.pth"
+torch.save(model, model_path)

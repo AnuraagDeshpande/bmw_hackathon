@@ -6,7 +6,7 @@ import pandas as pd
 #we open the csv
 df = pd.read_csv('train.csv')
 print(f'The original frame: {df.shape}')
-
+og_columns=set(df.columns)
 #NULLS-------------------------------------------------------------------------
 #we drop not needed data
 df = df.drop(columns=['message_timestamp','weekday','shift','physical_part_id'])
@@ -72,6 +72,7 @@ df.to_csv("var.csv")
 df = df.dropna(subset=['physical_part_type'])
 print("the data is clear. Here is the info before separation:")
 df.info()
+new_columns=set(df.columns)
 df.to_csv('clean.csv')
 #SEPARATION
 '''
@@ -91,3 +92,15 @@ for i in range(3):
 df_type1.to_csv("type1.csv")
 df_type2.to_csv("type2.csv")
 df_type4.to_csv("type4.csv")
+
+#we save deleted columns
+deleted_columns=og_columns-new_columns
+
+file_name="./data/deleted.txt"
+with open(file_name, "w") as file:
+    #Write each string in the list to the file, followed by a newline
+    for string in deleted_columns:
+        file.write(string + "\n")
+
+print(f'removed {len(deleted_columns)} columns were saved to {file_name}')
+print("Completed!")

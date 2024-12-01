@@ -20,14 +20,14 @@ This file plots data produced by cleaner. Needed for presentation.
 At first we cleaned the data. There were a lot of null values which we had to deal with. Also, a lot of it can be skewed or have low 
 variance. We address these problems in the first file:
 
-[cleaning.md](./cleaning.md)
+[cleaning.md](./docs/cleaning.md)
 
 After the first step is done we need to balance it.
 
 When it is ready for training we use the new file as input in ```nn.py``` file. It trains and tests the model on
 the ```train.csv``` data set. 
 
-[model.md](./model.md)
+[model.md](./docs/model.md)
 
 ## Running the code:
 The execution of ```plotter.py``` can be done at any time after the cleaner is done.

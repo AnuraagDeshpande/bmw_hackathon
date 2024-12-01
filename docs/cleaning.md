@@ -19,12 +19,12 @@ We can only have numbers for our model. Thus, we mapped 'OK' and 'NOK' to 1 and 
 
 Similarly we map the types of parts to 1,2,3.
 ## Variance filtering:
-![initial sensor data](./images/censors.png)
+![initial sensor data](../images/censors.png)
 After plotting data from different sensors it was clear that a lot of it is heavily concentrated and has low
 variance. This data will not be as useful for the model and was dropped.
 
 Also, we dropped the columns that were all null in order to avoid NaN errors.
-![initial sensor data](./images/censors_clean.png)
+![initial sensor data](../images/censors_clean.png)
 Afterwards we could see more diverse graphs, where data is less concentrated. (The picture shows the first 25 columns of data plotted as histograms)
 ## Separation:
 We separate the data according to the part type and drop the column with correspinding data as we no longer need it.
