@@ -50,5 +50,5 @@ python test_nn.py
 
 In order to remove all csv files when done the following command is used
 ```
-./remove_csv
+./remove_csv.sh
 ```
