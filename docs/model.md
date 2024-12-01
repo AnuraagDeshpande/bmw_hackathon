@@ -14,3 +14,9 @@ We have 2 epochs, during which we feed the data through the model and calculate 
 The loss values are appended to an array that will be ploted and daved when training is done. 
 
 In order to test our results we use the test sample and calculate the accuracy.
+
+The picture shows the relationship of OK to NOK before balancing in combined and separated dataset.
+
+![out of balancd](../images/ok_clean.png)
+It stays constant in each part type as well.
+![out of balancd](../images/ok_types.png)
