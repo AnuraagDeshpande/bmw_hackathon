@@ -3,8 +3,6 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv('cleaned.csv')
-new_df = pd.read_csv('var.csv')
 #we want to plot censor data in 1 plot
 def plot_sensors(df, name):
     fig, axes = plt.subplots(5, 5, figsize=(20, 20))  # Create a 5x5 grid of subplots

@@ -37,9 +37,18 @@ python balancer.py
 python nn.py
 python plotter.py
 ```
+The same can be done by simply running:
+```
+./train.sh
+```
 
 In order to predict the following sequence of commands need to be run:
 ```
 python fit_data.py
 python test_nn.py
+```
+
+In order to remove all csv files when done the following command is used
+```
+./remove_csv
 ```
