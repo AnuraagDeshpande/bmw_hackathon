@@ -39,20 +39,8 @@ for col_name, typ in dtypes.items():
 #we check the sizing and contents of a column
 print(f'The frame wthout nulls: {df.shape}')
 print(df.info())
-#NORMALIZATION-----------------------------------------------------------------
-#function for normalizing each column to the range [0, 1]
-def norm(col):
-    return (col - col.min()) / (col.max() - col.min()) 
-#we go through the table
-for col_name, typ in dtypes.items():
-    if(typ==my_type):#check type
-        df[col_name]=norm(df[col_name])
-
-#MAPPING
-mapping = {'OK': 1, 'NOK': 0}
-df['status']=df['status'].map(mapping)
-mapping = {'type1': 1, 'type2': 2, 'type4':3}
-df['physical_part_type']=df['physical_part_type'].map(mapping)
+#we want to discard NAN types and map the part types
+df = df.dropna(subset=['physical_part_type'])
 
 df.to_csv("prefilter.csv")
 #VARIANCE FILTERING
@@ -68,8 +56,27 @@ df=df.drop(columns=columns_to_remove)
 df = df.dropna(axis=1, how='all') 
 print(f'The variance filtered frame: {df.shape}')
 df.to_csv("var.csv")
-#we want to discard NAN types and map the part types
-df = df.dropna(subset=['physical_part_type'])
+#NORMALIZATION-----------------------------------------------------------------
+min_max_df = pd.DataFrame(columns=['Column', 'Min', 'Range'])
+#function for normalizing each column to the range [0, 1]
+def norm(col):
+    col_min = col.min()
+    col_range = col.max() - col_min
+    return (col - col_min) / col_range, col_min, col_range
+#we go through the table
+dtypes = df.dtypes.to_dict()
+for col_name, typ in dtypes.items():
+    if(typ==my_type):#check type
+        normalized_col, col_min, col_range = norm(df[col_name])
+        df[col_name]=normalized_col
+        min_max_df = pd.concat([min_max_df, pd.DataFrame({'Column': [col_name], 'Min': [col_min], 'Range': [col_range]})], ignore_index=True)
+min_max_df.to_csv('norm.csv', index=False)
+#MAPPING
+mapping = {'OK': 1, 'NOK': 0}
+df['status']=df['status'].map(mapping)
+mapping = {'type1': 1, 'type2': 2, 'type4':3}
+df['physical_part_type']=df['physical_part_type'].map(mapping)
+
 print("the data is clear. Here is the info before separation:")
 df.info()
 new_columns=set(df.columns)

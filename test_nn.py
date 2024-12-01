@@ -10,9 +10,9 @@ from torch.utils.data import TensorDataset, DataLoader
 #INIT:
 #we set the hyper parameters
 input_size = 0
-hidden_size = 60
+hidden_size = 100
 num_classes = 2
-num_epochs = 1
+num_epochs = 2
 batch_size = 50
 learning_rate = 0.001
 #we initate a device
@@ -27,7 +27,6 @@ data_x=dataframe.iloc[:,1:]
 physical_part_ids = dataframe['physical_part_id']
 #Exclude physical_part_id from features
 data_x = dataframe.drop(columns=['physical_part_id'])
-data_x = (data_x - data_x.mean()) / (data_x.std() + 1e-8)
 input_size=data_x.shape[1]
 #turn to tensor
 x = torch.tensor(data_x.values, dtype=torch.float)
@@ -79,5 +78,10 @@ results_df = pd.DataFrame({
 })
 
 #Save to CSV
+ok = len(results_df[results_df['prediction'] == 1])
+nok = len(results_df[results_df['prediction'] == 0])
+print(f'OK: {ok} NOK: {nok}')
+mapping={0: "NOK", 1: "OK"}
+results_df['prediction']=results_df['prediction'].map(mapping)
 results_df.to_csv('predictions.csv', index=False)
 print("Predictions saved to predictions.csv")

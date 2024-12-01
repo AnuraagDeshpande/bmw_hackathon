@@ -11,9 +11,9 @@ from torch.utils.data import TensorDataset, DataLoader
 #INIT:
 #we set the hyper parameters
 input_size = 0
-hidden_size = 60
+hidden_size = 100
 num_classes = 2
-num_epochs = 1
+num_epochs = 2
 batch_size = 50
 learning_rate = 0.001
 #we initate a device
@@ -31,8 +31,6 @@ print("Y:")
 data_y.info()
 print("X:")
 data_x.info()
-
-data_x = (data_x - data_x.mean()) / (data_x.std() + 1e-8)
 
 #turn to tensor
 x = torch.tensor(data_x.values, dtype=torch.float)

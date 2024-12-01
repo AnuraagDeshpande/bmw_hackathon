@@ -28,18 +28,25 @@ for col_name, typ in dtypes.items():
         
         df[col_name] = df[col_name].fillna(replacement_value)
 #NORMALIZATION-----------------------------------------------------------------
-#function for normalizing each column to the range [0, 1]
-def norm(col):
-    return (col - col.min()) / (col.max() - col.min()) 
+#function for normalizing each column to the range [0, 1] 
+norms = pd.read_csv("norm.csv")
+# Normalize function
+def norm(col, col_name):
+    # Get the Min and Range for the given column name
+    col_min = norms.loc[norms["Column"] == col_name, "Min"].values[0]
+    col_range = norms.loc[norms["Column"] == col_name, "Range"].values[0]
+    # Normalize the column using the Min and Range
+    return (col - col_min) / col_range
 #we go through the table
 for col_name, typ in dtypes.items():
     if(typ==my_type):#check type
-        df[col_name]=norm(df[col_name])
+        df[col_name] = norm(df[col_name], col_name)
 #MAPPING-----------------------------------------------------------------------
 mapping = {'type1': 1, 'type2': 2, 'type4':3}
 df['physical_part_type']=df['physical_part_type'].map(mapping)
 #DROP NAN IN PHYSICAL PART TYPE------------------------------------------------
 df = df.dropna(subset=['physical_part_type'])
 #we save the test data
+print("data fitted:\n")
 df.info()
 df.to_csv('clean_test.csv')
