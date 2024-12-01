@@ -7,10 +7,10 @@ after several linear layers it outputs to one neuron that can be either 1 or 0.
 
 Before training the data is separated into train and test samples that will be used later on.
 
-The hidden layer size is 20 and the activation function used is Relu. 
+The hidden layer size is 100 and the activation function used is Relu. 
 
 ## Training and testing
-We have 2 epochs, during which we feed the data through the model and calculate the loss.
+We have 1 epochs, during which we feed the data through the model and calculate the loss.
 The loss values are appended to an array that will be ploted and daved when training is done. 
 
 In order to test our results we use the test sample and calculate the accuracy.
