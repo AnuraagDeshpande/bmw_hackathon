@@ -21,19 +21,20 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 #LOAD DATA:
 #Load the CSV file
 dataframe = pd.read_csv("clean_test.csv")
-data_y=dataframe['status']
-data_x=dataframe.iloc[:,1:]
 
+data_x=dataframe.iloc[:,1:]
+#Retain physical_part_id
+physical_part_ids = dataframe['physical_part_id']
+#Exclude physical_part_id from features
+data_x = dataframe.drop(columns=['physical_part_id'])
 data_x = (data_x - data_x.mean()) / (data_x.std() + 1e-8)
 input_size=data_x.shape[1]
 #turn to tensor
 x = torch.tensor(data_x.values, dtype=torch.float)
-y = torch.tensor(data_y.values, dtype=torch.float)
 
-y_test=y
 x_test=x
 #we turn tensors into a dataset
-test_dataset = TensorDataset(x_test, y_test)
+test_dataset = TensorDataset(x_test)
 #create DataLoaders
 test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
@@ -55,20 +56,25 @@ class NeuralNet(nn.Module):
 #we load the model
 model_path="./data/model.pth"
 model = torch.load(model_path)
-#model.eval()
 
-# Evaluate the model
+#Evaluate the model
+predictions_list = []
 with torch.no_grad():
     n_correct = 0
     n_samples = 0
-    for features, labels in test_loader:
+    for features in test_loader:
         features = features.to(device)
-        labels = labels.to(device, dtype=torch.float).view(-1, 1)
         outputs = model(features)
         
         predictions = (torch.sigmoid(outputs) > 0.5).float()
-        n_correct += (predictions == labels).sum().item()
-        n_samples += labels.size(0)
+        predictions_list.extend(predictions)
+print('testing complete!')
+#Convert predictions and IDs to a DataFrame
+results_df = pd.DataFrame({
+    'physical_part_id': physical_part_ids,
+    'prediction': predictions_list
+})
 
-    acc = 100.0 * n_correct / n_samples
-    print(f'Accuracy of the network on the test set: {acc:.2f}%')
+#Save to CSV
+results_df.to_csv('predictions.csv', index=False)
+print("Predictions saved to predictions.csv")
