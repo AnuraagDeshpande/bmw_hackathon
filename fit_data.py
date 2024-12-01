@@ -4,7 +4,7 @@ This file is for the data to be fit before being inputed into the network
 '''
 import pandas as pd
 #we open the csv
-df = pd.read_csv('test.csv')
+df = pd.read_csv('train.csv')
 print(f'The inputed frame: {df.shape}')
 
 #DROP COLUMNS LIKE WHILE TRAINING----------------------------------------------
@@ -49,4 +49,4 @@ df = df.dropna(subset=['physical_part_type'])
 #we save the test data
 print("data fitted:\n")
 df.info()
-df.to_csv('clean_test.csv')
+df.to_csv('clean_test.csv', index=False)

@@ -42,7 +42,7 @@ print(df.info())
 #we want to discard NAN types and map the part types
 df = df.dropna(subset=['physical_part_type'])
 
-df.to_csv("prefilter.csv")
+df.to_csv("prefilter.csv",index=False)
 #VARIANCE FILTERING
 #our graph showed us a lot of columns with vary low variance. We dont need those
 low_variance_threshold = 0.01
@@ -55,7 +55,7 @@ for col_name, typ in dtypes.items():
 df=df.drop(columns=columns_to_remove)
 df = df.dropna(axis=1, how='all') 
 print(f'The variance filtered frame: {df.shape}')
-df.to_csv("var.csv")
+df.to_csv("var.csv",index=False)
 #NORMALIZATION-----------------------------------------------------------------
 min_max_df = pd.DataFrame(columns=['Column', 'Min', 'Range'])
 #function for normalizing each column to the range [0, 1]
@@ -80,7 +80,7 @@ df['physical_part_type']=df['physical_part_type'].map(mapping)
 print("the data is clear. Here is the info before separation:")
 df.info()
 new_columns=set(df.columns)
-df.to_csv('clean.csv')
+df.to_csv('clean.csv',index=False)
 #SEPARATION
 '''
 We want to separate the type 1 from type 2,4
@@ -96,9 +96,9 @@ for i in range(3):
     frame=frames[i]
     print(f'{label} is shape {frame.shape}')
 #data is saved back to different csvs
-df_type1.to_csv("type1.csv")
-df_type2.to_csv("type2.csv")
-df_type4.to_csv("type4.csv")
+df_type1.to_csv("type1.csv",index=False)
+df_type2.to_csv("type2.csv",index=False)
+df_type4.to_csv("type4.csv",index=False)
 
 #we save deleted columns
 deleted_columns=og_columns-new_columns

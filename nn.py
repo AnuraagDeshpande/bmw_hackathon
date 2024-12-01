@@ -14,8 +14,8 @@ from torch.utils.data import TensorDataset, DataLoader
 input_size = 0
 hidden_size = 100
 num_classes = 2
-num_epochs = 3
-batch_size = 50
+num_epochs = 5
+batch_size = 32
 learning_rate = 0.001
 #we initate a device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -54,6 +54,17 @@ test_dataset = TensorDataset(x_test, y_test)
 #create DataLoaders
 train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
+#we print STATS
+num_zeros_train = (y_train == 0).sum().item()
+num_ones_train = (y_train == 1).sum().item()
+
+num_zeros_test = (y_test == 0).sum().item()
+num_ones_test = (y_test == 1).sum().item()
+
+# Print the counts
+print(f"Training set: {num_zeros_train} zeros, {num_ones_train} ones")
+print(f"Testing set: {num_zeros_test} zeros, {num_ones_test} ones")
+
 
 #fully connected neural network with one hidden layer
 class NeuralNet(nn.Module):
@@ -95,7 +106,7 @@ for epoch in range(num_epochs):
         optimizer.step()
         losses.append(loss.item())
         
-        if (i+1) % 50 == 0:
+        if (i+1) % 100 == 0:
             print (f'Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{n_total_steps}], Loss: {loss.item():.4f}')
 
 plt.figure(figsize=(10, 6))
