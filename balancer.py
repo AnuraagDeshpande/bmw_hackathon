@@ -34,6 +34,6 @@ minority = len(shuffled_df[shuffled_df['status'] == 0])
 print(f"new majority count: {majority}")
 print(f"new minority count: {minority}")
 print("saving...")
-shuffled_df.to_csv("clean_test.csv",index=False)
+shuffled_df.to_csv("balanced.csv",index=False)
 print("Balancing completed!\n")
 

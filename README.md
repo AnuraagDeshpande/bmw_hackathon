@@ -35,7 +35,8 @@ the ```train.csv``` data set.
 [model.md](./docs/model.md)
 
 ### Running the code:
-The execution of ```plotter.py``` can be done at any time after the cleaner is done.
+The execution of ```plotter.py``` can be done at any time after the cleaner is done.It is important to put the 
+```train.csv``` and ```test.csv``` into the folder before execution.
 ```
 python cleaner.py
 python balancer.py
@@ -57,7 +58,7 @@ In order to remove all csv files when done the following command is used
 ```
 ./remove_csv.sh
 ```
-
+[outpus.md](./docs/outputs.md)
 ## Analysis
 Below you can find our analysis of the model
 
