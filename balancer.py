@@ -7,8 +7,8 @@ df = pd.read_csv('clean.csv')
 majority = df[df['status'] == 1]
 minority = df[df['status'] == 0]
 
-target=len(minority)*8
-temp_target=len(minority)*16
+target=len(minority)*3
+temp_target=len(minority)*3
 print(f"majority count: {len(majority)}")
 print(f"minority count: {len(minority)}")
 print(f"target count: {target}")
@@ -34,6 +34,6 @@ minority = len(shuffled_df[shuffled_df['status'] == 0])
 print(f"new majority count: {majority}")
 print(f"new minority count: {minority}")
 print("saving...")
-shuffled_df.to_csv("balanced.csv",index=False)
+shuffled_df.to_csv("clean_test.csv",index=False)
 print("Balancing completed!\n")
 

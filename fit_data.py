@@ -4,7 +4,7 @@ This file is for the data to be fit before being inputed into the network
 '''
 import pandas as pd
 #we open the csv
-df = pd.read_csv('train.csv')
+df = pd.read_csv('test.csv')
 print(f'The inputed frame: {df.shape}')
 
 #DROP COLUMNS LIKE WHILE TRAINING----------------------------------------------

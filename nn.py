@@ -14,7 +14,7 @@ from torch.utils.data import TensorDataset, DataLoader
 input_size = 0
 hidden_size = 100
 num_classes = 2
-num_epochs = 5
+num_epochs = 1
 batch_size = 32
 learning_rate = 0.001
 #we initate a device
@@ -85,7 +85,8 @@ class NeuralNet(nn.Module):
 model = NeuralNet(input_size, hidden_size).to(device)
 
 #Loss and optimizer
-criterion = nn.BCEWithLogitsLoss()
+class_weights = torch.tensor([num_zeros_train / num_ones_train], dtype=torch.float).to(device)
+criterion = nn.BCEWithLogitsLoss(pos_weight=class_weights)
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate) 
 
 #Train the model
@@ -129,7 +130,7 @@ with torch.no_grad():
         labels = labels.to(device, dtype=torch.float).view(-1, 1)
         outputs = model(features)
         
-        predictions = (torch.sigmoid(outputs) > 0.5).float()
+        predictions = (torch.sigmoid(outputs) > 0.3).float()
         n_correct += (predictions == labels).sum().item()
         n_samples += labels.size(0)
         predictions_list.extend(prediction.item() for prediction in predictions)
