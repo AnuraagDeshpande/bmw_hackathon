@@ -7,13 +7,14 @@ import matplotlib
 matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
 from torch.utils.data import TensorDataset, DataLoader
 #INIT:
 #we set the hyper parameters
 input_size = 0
 hidden_size = 100
 num_classes = 2
-num_epochs = 2
+num_epochs = 3
 batch_size = 50
 learning_rate = 0.001
 #we initate a device
@@ -21,7 +22,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 #LOAD DATA:
 #Load the CSV file
-dataframe = pd.read_csv("clean.csv")
+dataframe = pd.read_csv("balanced.csv")
 data_y=dataframe['status']
 data_x=dataframe.iloc[:,1:]
 input_size=data_x.shape[1]
@@ -31,7 +32,7 @@ print("Y:")
 data_y.info()
 print("X:")
 data_x.info()
-
+print(data_y.value_counts())
 #turn to tensor
 x = torch.tensor(data_x.values, dtype=torch.float)
 y = torch.tensor(data_y.values, dtype=torch.float)
@@ -94,7 +95,7 @@ for epoch in range(num_epochs):
         optimizer.step()
         losses.append(loss.item())
         
-        if (i+1) % 10 == 0:
+        if (i+1) % 50 == 0:
             print (f'Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{n_total_steps}], Loss: {loss.item():.4f}')
 
 plt.figure(figsize=(10, 6))
@@ -108,6 +109,7 @@ plt.close()
 
 model.eval()
 # Evaluate the model
+predictions_list = []
 with torch.no_grad():
     n_correct = 0
     n_samples = 0
@@ -119,9 +121,13 @@ with torch.no_grad():
         predictions = (torch.sigmoid(outputs) > 0.5).float()
         n_correct += (predictions == labels).sum().item()
         n_samples += labels.size(0)
+        predictions_list.extend(prediction.item() for prediction in predictions)
+        #print(predictions[:10], labels[:10]) 
 
     acc = 100.0 * n_correct / n_samples
     print(f'Accuracy of the network on the test set: {acc:.2f}%')
+
+print(predictions_list.count(1), predictions_list.count(0))
 #save the model
 model_path="./data/model.pth"
 torch.save(model.state_dict(), model_path)
