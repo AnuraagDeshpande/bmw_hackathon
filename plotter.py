@@ -55,3 +55,4 @@ for i in range(3):
     plot_OK(df, ax)
     ax.set_title(label)
 fig.savefig('./images/ok'+'_types'+'.png')
+print("Plotting completed!")

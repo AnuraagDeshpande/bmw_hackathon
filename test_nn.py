@@ -55,19 +55,22 @@ class NeuralNet(nn.Module):
         return out
 #we load the model
 model_path="./data/model.pth"
-model = torch.load(model_path)
+model = NeuralNet(input_size, hidden_size)
+model.load_state_dict(torch.load(model_path))
+model.eval()
 
 #Evaluate the model
 predictions_list = []
 with torch.no_grad():
     n_correct = 0
     n_samples = 0
-    for features in test_loader:
-        features = features.to(device)
+    for batch in test_loader:
+        features = batch[0].to(device)
         outputs = model(features)
         
         predictions = (torch.sigmoid(outputs) > 0.5).float()
-        predictions_list.extend(predictions)
+        predictions_list.extend(prediction.item() for prediction in predictions)
+
 print('testing complete!')
 #Convert predictions and IDs to a DataFrame
 results_df = pd.DataFrame({

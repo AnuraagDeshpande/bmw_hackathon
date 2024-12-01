@@ -103,4 +103,4 @@ with open(file_name, "w") as file:
         file.write(string + "\n")
 
 print(f'removed {len(deleted_columns)} columns were saved to {file_name}')
-print("Completed!")
+print("Cleaning completed!\n")

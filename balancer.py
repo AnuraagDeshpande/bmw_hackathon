@@ -34,5 +34,5 @@ print(f"new majority count: {majority}")
 print(f"new minority count: {minority}")
 print("saving...")
 shuffled_df.to_csv("balanced.csv")
-print("Completed!")
+print("Balancing completed!\n")
 

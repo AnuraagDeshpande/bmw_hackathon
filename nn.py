@@ -108,6 +108,7 @@ plt.legend()
 plt.savefig("./images/losses.png")  # Save the figure as a PNG file
 plt.close()
 
+model.eval()
 # Evaluate the model
 with torch.no_grad():
     n_correct = 0
@@ -125,4 +126,5 @@ with torch.no_grad():
     print(f'Accuracy of the network on the test set: {acc:.2f}%')
 #save the model
 model_path="./data/model.pth"
-torch.save(model, model_path)
+torch.save(model.state_dict(), model_path)
+print("Training completed!\n")
