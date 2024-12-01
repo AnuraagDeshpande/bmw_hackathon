@@ -2,7 +2,8 @@
 ## Our team:
 - person
 - person
-- ...
+- Tpdkr
+- Anuraag
 ## Libraries and tools we used:
 Our main tools in this project were different python libraries on which the code depends as well as github for collaborative work.
 ### Python libraries:
@@ -61,3 +62,6 @@ In order to remove all csv files when done the following command is used
 Below you can find our analysis of the model
 
 [analysis.md](./docs/analysis.md)
+
+## QR code with the link to the repo
+![qr code](./images/qr_repo.png)
