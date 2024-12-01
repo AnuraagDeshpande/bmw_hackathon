@@ -111,3 +111,4 @@ with open(file_name, "w") as file:
 
 print(f'removed {len(deleted_columns)} columns were saved to {file_name}')
 print("Cleaning completed!\n")
+#we cleaned the doc.

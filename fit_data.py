@@ -50,3 +50,4 @@ df = df.dropna(subset=['physical_part_type'])
 print("data fitted:\n")
 df.info()
 df.to_csv('clean_test.csv', index=False)
+#data is saved to a special file

@@ -1,7 +1,7 @@
 # bmw_hackathon
 ## Our team:
-- person
-- person
+- Saragaire
+- nijushaamgain
 - Tpdkr
 - Anuraag
 ## Libraries and tools we used:
